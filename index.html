@@ -1,0 +1,92 @@
+Entendido. Aquí tienes una versión modificada del código que cumple con tus requisitos:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fiesta de colores</title>
+  <style>
+    body {
+      background-color: black;
+      text-align: center;
+      padding-top: 200px;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      border-radius: 8px;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #ffffff;
+      opacity: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="partyButton" onclick="startParty()">¡Toca aquí!</button>
+
+  <script>
+    var partyButton = document.getElementById('partyButton');
+    var partyInterval;
+
+    function startParty() {
+      partyButton.style.display = 'none';
+
+      var colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+      var confettiCount = 100;
+
+      partyInterval = setInterval(function() {
+        if (confettiCount <= 0) {
+          stopParty();
+          return;
+        }
+
+        var confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = (Math.random() * 100) + '%';
+        confetti.style.top = (Math.random() * 100) + '%';
+        confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+        document.body.appendChild(confetti);
+
+        setTimeout(function() {
+          confetti.style.opacity = '0';
+          setTimeout(function() {
+            document.body.removeChild(confetti);
+          }, 1000);
+        }, 2000);
+
+        confettiCount--;
+      }, 200);
+
+      setTimeout(stopParty, 600000); // Cancelar la fiesta después de 10 minutos (600,000 ms)
+    }
+
+    function stopParty() {
+      clearInterval(partyInterval);
+      var confettiElements = document.getElementsByClassName('confetti');
+      for (var i = 0; i < confettiElements.length; i++) {
+        document.body.removeChild(confettiElements[i]);
+      }
+      partyButton.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
+```
+
+Este código hará que el botón desaparezca cuando se toque, y se mostrará una explosión de colores (confetis) en la pantalla. Los confetis aparecerán y desaparecerán gradualmente. Después de 10 minutos, la fiesta se cancelará y el botón volverá a aparecer.
+
+Puedes copiar y pegar este código en un archivo HTML y abrirlo en tu navegador para verlo en acción. ¡Diviértete en tu fiesta de colores!
